@@ -29,13 +29,12 @@ services:
     depends_on:
       - mysql
     environment:
-      - NAME=Docker 
-      - PORT=3030
-      - MYSQL_HOST=172.17.0.1
+      - MYSQL_HOST=localhost
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root123
-      - MYSQL_PORT=3306
+      # - MYSQL_PORT=3306
       - MYSQL_DBNAME=todo4
+
 
 networks:
   api_networks:
