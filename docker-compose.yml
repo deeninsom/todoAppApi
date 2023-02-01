@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    hostname: localhost
+    restart: always
+    ports:
+      - 3307:3306
+    expose:
+      - 3306
+    networks:
+      - api_networks
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+
+  api250123:
+    container_name: 'api250123'
+    build: .
+    ports:
+      - "8090:3030"
+    expose:
+      - 3030
+    stdin_open: true
+    networks:
+      - api_networks
+    depends_on:
+      - mysql
+    environment:
+      - NAME=Docker 
+      - PORT=3030
+      - MYSQL_HOST=172.17.0.1
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root123
+      - MYSQL_PORT=3306
+      - MYSQL_DBNAME=todo4
+
+networks:
+  api_networks:
+    name: api_networks
