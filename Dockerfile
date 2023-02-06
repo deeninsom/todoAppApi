@@ -1,16 +1,11 @@
-FROM node:18
+FROM node:lts-slim
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package.json ./
+COPY package*.json ./
 
-RUN npm install
-# RUN npx sequelize init
-# RUN npx sequelize db:migrate
+RUN npm ci
 
-COPY . .
+COPY . ./
 
-EXPOSE 3030
-
-CMD [ "npm", "start" ]
-
+CMD ["npm","start"]

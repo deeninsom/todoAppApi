@@ -1,5 +1,5 @@
 const express = require('express')
-
+const connectDb = require('./models/index');
 const activityRoute = require("./component/activities/activityRoute");
 const todoRoute = require('./component/todos/todoRoute');
 
@@ -13,6 +13,6 @@ app.use('/todolist.api.devcode.gethired.id', activityRoute, todoRoute)
 
 
 app.listen(PORT, ()=>{
-    // connectDb
+    connectDb
     console.log(`app running at http://localhost:${PORT}`)
 })

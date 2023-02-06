@@ -5,13 +5,6 @@ require('dotenv').config()
 const {MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST,MYSQL_DBNAME, MYSQL_DIALECT } = process.env
 
 module.exports = {
-  //   "development": {
-  //   "username": 'root',
-  //   "password": "root123",
-  //   "database": "todo4",
-  //   "host": "localhost",
-  //   "dialect": "mysql"
-  // },
   "development": {
     "username": MYSQL_USER,
     "password": MYSQL_PASSWORD,
