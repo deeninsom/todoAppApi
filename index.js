@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3030 
 
 app.use(express.json())
-app.use('/todolist.api.devcode.gethired.id', activityRoute, todoRoute)
+app.use('/', activityRoute, todoRoute)
 
 
 app.listen(PORT, ()=>{

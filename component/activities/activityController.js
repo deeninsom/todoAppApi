@@ -1,9 +1,9 @@
-const { Activities } = require('../../models');
+const { activities } = require('../../models');
 
 class Activity {
     async getActivity(req, res) {
         try {
-            const activity = await Activities.findAll()
+            const activity = await activities.findAll()
             res.status(200).json({
                 status: "Success",
                 message: "Success",
@@ -17,9 +17,9 @@ class Activity {
     async getActivityById(req, res) {
         let id = req.params.id
         try {
-            const activity = await Activities.findOne({
+            const activity = await activities.findOne({
                 where: {
-                    activity_id: req.params.id
+                    id: req.params.id
                 }
             })
             if (!activity) return res.status(404).json({ status: 'Not Found', message: `Activity with ID ${id} Not Found` })
@@ -34,15 +34,15 @@ class Activity {
     }
     async postActivity(req, res) {
         try {
-            const { tittle, email } = req.body
-            if (req.body.tittle === '') {
+            const { title, email } = req.body
+            if (!req.body.title) {
                 return res.status(400).json({
                     status: "Bad Request",
                     message: "title cannot be null",
                 })
             }
-            const activity = await Activities.create({
-                tittle: tittle,
+            const activity = await activities.create({
+                title: title,
                 email: email
             })
             res.status(201).json({
@@ -51,29 +51,32 @@ class Activity {
                 data: activity
             })
         } catch (error) {
-            console.log(error)
-            res.status(400).json({ msg: error.message });
+            res.status(400).json({
+                status: "Bad Request",
+                message: "title cannot be null",
+            });
         }
     }
     async updateActivity(req, res) {
         let id = req.params.id
-        const activity = await activityModel.findOne({
-            where: {
-                activity_id: req.params.id
-            }
-        })
-        if (!activity) return res.status(404).json({ status: 'Not Found', message: `Activity with ID ${id} Not Found` })
         try {
-            const { tittle, email } = req.body
-            await activityModel.update(
-                {
-                    tittle: tittle,
-                    email: email
-                }, {
+            if (!req.body.title) {
+                return res.status(400).json({
+                    status: "Bad Request",
+                    message: "title is required",
+                })
+            }
+             await activities.update(req.body, {
                 where: {
-                    activity_id: req.params.id
+                    id: req.params.id
                 }
             })
+            const activity = await activities.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })
+            if (!activity) return res.status(404).json({ status: 'Not Found', message: `Activity with ID ${id} Not Found` })
             res.status(200).json({
                 status: "Success",
                 message: "Success",
@@ -85,22 +88,18 @@ class Activity {
     }
     async deleteActivity(req, res) {
         let id = req.params.id
-        const activity = await activityModel.findOne({
-            where: {
-                activity_id: req.params.id
-            }
-        })
-        if (!activity) return res.status(404).json({ status: 'Not Found', message: `Activity with ID ${id} Not Found` })
         try {
-            await activityModel.destroy({
+            let data = await activities.destroy({
                 where: {
-                    id: activity.id
+                    id: req.params.id
                 }
             })
+            if (!data) return res.status(404).json({ status: 'Not Found', message: `Activity with ID ${id} Not Found` })
+            let dataBody = req.body
             res.status(200).json({
                 status: "Success",
                 message: "Success",
-                data: []
+                data : dataBody
             })
         } catch (error) {
             res.status(400).json({ msg: error.message });

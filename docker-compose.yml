@@ -10,26 +10,25 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - contact-manager-mysql-data:/var/lib/mysql
-      - contact-manager-mysql-config:/etc/mysql
-
-backend:
-  build:
-    context: .
-    dockerfile: Dockerfile
-  restart: unless-stopped
-  environment:
-    MYSQL_DBNAME: todo4
-    MYSQL_USER: root
-    MYSQL_PASSWORD: 123123
-    MYSQL_HOST: db
-  volumes:
-    - ./:/nodejs_hello
-  ports:
-    - "3030:3030"
-  depends_on:
-    - db
+      - todo4-mysql-data:/var/lib/mysql
+      - todo4-mysql-config:/etc/mysql
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      MYSQL_DBNAME: todo4
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123123
+      MYSQL_HOST: db
+    volumes:
+      - ./:/nodejs_hello
+    ports:
+      - "3030:3030"
+    depends_on:
+      - db
 
 volumes:
-  contact-manager-mysql-data:
-  contact-manager-mysql-config:
+  todo4-mysql-data:
+  todo4-mysql-config:

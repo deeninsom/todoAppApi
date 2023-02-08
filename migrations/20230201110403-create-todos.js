@@ -3,8 +3,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Todos', {
-      todo_id: {
+    await queryInterface.createTable('todos', {
+      id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
@@ -14,21 +14,21 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Activities',
-          key: 'activity_id'
+          model: 'activities',
+          key: 'id'
         },
       },
-      tittle: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       is_active: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: true
       },
       priority: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        type: DataTypes.STRING,
+        defaultValue: 'very-high'
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Todos');
+    await queryInterface.dropTable('todos');
   }
 };

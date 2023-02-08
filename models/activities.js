@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Activities extends Model {
+  class activities extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,19 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Activities.hasMany(models.Todos, {
-        as: 'Todos',
+      activities.hasMany(models.todos, {
+        as: 'todos',
         foreignKey: 'activity_group_id'
       });
     }
   }
-  Activities.init({
-    activity_id: {
+  activities.init({
+    id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
-    tittle: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Activities',
+    modelName: 'activities',
   });
-  return Activities;
+  return activities;
 };
