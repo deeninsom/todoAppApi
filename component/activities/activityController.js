@@ -1,5 +1,6 @@
 const { activities } = require('../../models');
 
+
 class Activity {
     async getActivity(req, res) {
         try {

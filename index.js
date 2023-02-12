@@ -3,6 +3,7 @@ const connectDb = require('./models/index');
 const activityRoute = require("./component/activities/activityRoute");
 const todoRoute = require('./component/todos/todoRoute');
 
+
 require('dotenv').config()
 const app = express();
 
