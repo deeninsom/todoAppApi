@@ -28,7 +28,11 @@ module.exports = {
       },
       priority: {
         type: DataTypes.STRING,
-        defaultValue: 'very-high'
+        defaultValue: "very-high"
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
